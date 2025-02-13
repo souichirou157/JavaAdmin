@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.example.demo.controller.db.DSN.Resource;
+import com.example.demo.DSN.Resource;
 import com.example.demo.model.sql.Metadata.OperateTable; 
 
 public final class Disp {

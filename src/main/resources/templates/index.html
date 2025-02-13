@@ -11,14 +11,13 @@
 	<p  style="color: aqua;" th:text="${status}"></p>
 	
 	
-    <form action="/login" method="post" id="form">
+    <form action="/index/login/{username}" method="post" id="form">
 		<p  th:text="ユーザネーム"></p>
 		<input type="text" name ="name" maxlength='15' placeholder="ユーザネーム"  style="width:125px">
         <p  th:text="パスワード"></p>
         <input type="text" name="password" maxlength='15'    placeholder="パスワード"  style="width:125px"></br>     
         <input th:value="OK"type="submit">
     </form>
-
 
 
 

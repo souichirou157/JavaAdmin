@@ -1,4 +1,4 @@
-package com.example.demo.controller.db;
+package com.example.demo;
 
 
 //内部クラス作ってそこにゲッター作る

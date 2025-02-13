@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.example.demo.controller.db.DSN.Resource;
+import com.example.demo.DSN.Resource;
 
 //テーブルリストを格納する配列を可変長に変更する
 public class  GetOperationData {

@@ -1,26 +1,39 @@
-package com.example.demo.model.app;
+package com.example.demo.controller.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
-import com.example.demo.controller.db.DSN.Resource;
-import com.example.demo.controller.service.InvalidController;
+import org.springframework.stereotype.Service;
 
+import com.example.demo.DSN.Resource;
+import com.example.demo.model.sql.Metadata.GetOperationData;
 
-public final class Login implements InvalidController{
-	
+import jakarta.servlet.http.HttpSession;
 
-	public Login() {}
+@Service
+public class JavaAdminService {
 	
 	static class UseQuery{
 		
 		private static final String statement = "SELECT User,Password FROM mysql.user WHERE  User = ? && Password = PASSWORD(?) ;";
 	}
+
+	public ArrayList<String> getDatabaseList(HttpSession  session) {
+		
+		@SuppressWarnings("uncheked")
+		ArrayList<String> db = (ArrayList<String>)session.getAttribute("databases");
+		db = GetOperationData.showDatabase();
+		
+		return db;
+		
+	}
 	
+
 	public  boolean findUser(String username ,String password) 
 			
 			throws IllegalArgumentException
@@ -63,13 +76,5 @@ public final class Login implements InvalidController{
 				return false;
 				
 		}
-		
-		
-		
-
 }
-
 }
-
-
-/*PreparedStatement ps = null; ResultSet rs = null; try ( Connection con = DriverManager.getConnection(getUrl(),getUser(),getPassword()); ){ ps = con.prepareStatement("SELECT User,Password FROM mysql.user WHERE User = ? && Password = PASSWORD(?) ;"); ps.setString(1,username); ps.setString(2, password); rs = ps.executeQuery(); java.sql.ResultSetMetaData metadata = rs.getMetaData(); while (rs.next()) { data = rs.getString("User"); System.out.println( rs.getString("Password")); i++; } return Objects.isNull(data); } catch (SQLException e) { e.printStackTrace(); return false; } mysql　の mysql.userテーブルを検索していますが存在しないユーザデータを渡すしてもtrueを返します。　実装に問題ありますか*/

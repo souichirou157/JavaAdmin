@@ -1,4 +1,4 @@
-package com.example.demo.controller.db;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +54,10 @@ public final class DBMappingController {
 //		
 	
 
-		return "redirect:/showtable";
+		return "redirect:/db/showtable";
 	}
 	
-	@GetMapping("/showtable")
+	@GetMapping("/db/showtable")
 	private ModelAndView showtableHandler(@ModelAttribute("dbname") String dbname,
 			ModelAndView mv,Model model) {
 		

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData ;
 import java.sql.SQLException;
 
-import com.example.demo.controller.db.DSN.Resource;
+import com.example.demo.DSN.Resource;
 
 public class OperateTable {
 

@@ -1,4 +1,4 @@
-package com.example.demo.controller.menu;
+package com.example.demo.controller;
 
 import static com.example.demo.model.app.service.TableOption.*;
 import static com.example.demo.model.sql.views.Delete.*;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.controller.Session;
 import com.example.demo.model.app.Views;
 import com.example.demo.model.sql.Metadata.reservedwords.FOR_STATEMENTS;
 

@@ -13,7 +13,7 @@ import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.example.demo.controller.db.DSN.Resource;
+import com.example.demo.DSN.Resource;
 import com.example.demo.model.sql.Metadata.GetOperationData;
 
 import lombok.AllArgsConstructor;

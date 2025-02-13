@@ -1,4 +1,4 @@
-package com.example.demo.controller.menu.sql;	
+package com.example.demo.controller;	
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;

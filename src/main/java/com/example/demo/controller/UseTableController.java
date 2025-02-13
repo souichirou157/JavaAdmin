@@ -1,4 +1,4 @@
-package com.example.demo.controller.db.table;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 
@@ -20,9 +20,10 @@ import jakarta.servlet.http.HttpSession;
 public final class UseTableController {
 
 	@Autowired
-	private HttpSession  session ;
+	private HttpSession  session;
 	
 
+	
 	@GetMapping("/tb")
 	private String  BranchHandler(@RequestParam("table") String tablename,RedirectAttributes redirectAttributes,ModelAndView mv,Model model) {
 	
@@ -45,10 +46,10 @@ public final class UseTableController {
 		mv.addObject("Server");
 		
 		
-		return  "redirect:/tableschema";
+		return  "redirect:/db/showtable/tableschema";
 	}
 	
-	@GetMapping("/tableschema")
+	@GetMapping("/db/showtable/tableschema")
 	public ModelAndView tableHandler(@ModelAttribute Views t,@ModelAttribute("tablename") String tablename,ModelAndView mv,Model model) {
 		
 		mv.setViewName("admin");

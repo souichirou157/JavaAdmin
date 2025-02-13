@@ -1,4 +1,4 @@
-package com.example.demo.controller.db.table;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 

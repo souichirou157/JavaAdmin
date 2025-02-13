@@ -1,4 +1,4 @@
-package com.example.demo.controller.menu.Insert;
+package com.example.demo.controller;
 
 import static com.example.demo.model.sql.views.InsertForm.*;
 
