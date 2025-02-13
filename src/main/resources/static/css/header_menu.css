@@ -1,0 +1,69 @@
+@charset "UTF-8";
+:root{
+	--zero:0px;
+	--record-color:aquamarine;
+	--record:center;
+	--regionline:solid 3px rgb(0, 64, 128);
+	--rightRegionWidth: 75%;
+	--dashbordArea:1596px;
+	--tableListGrid:18%;
+	--gridMotif:90px;
+	--interval_default:12px;
+}
+
+
+#dashbordTrriger{
+	position: fixed;
+	position:absolute;
+	right: var(--zero);
+	top: var(--zero);
+	border:var(--regionline);
+	border-radius:var(--gridMotif);
+	width: var(--rightRegionWidth);
+	padding:var(--zero) calc(var(--interval_default)+6) var(--zero) ;
+	display: flex;
+}
+
+#dashbordTrriger #Trriger{
+	
+	text-align: var(--record);
+	background-color: coral;
+	margin:calc(var(--interval_default)*2) calc(var(--interval_default)*2) calc(var(--interval_default)*2) calc(var(--interval_default)*2);
+}
+
+
+#dashbordTrriger #cuurrenttablename{
+	color: var(--record-color);
+	margin:calc(var(--interval_default)*2) calc(var(--interval_default)*2) calc(var(--interval_default)*2) calc(var(--interval_default)*2);
+}
+
+#dashbordTrriger .submenu{
+	margin:var(--zero)  calc(var(--interval_default)*2) var(--zero) calc(var(--interval_default)*2);
+	padding:var(--zero)  calc(var(--interval_default)*2) var(--zero) calc(var(--interval_default)*2);
+}
+
+#dashbordTrriger .submenu a{
+	color:rgb(0, 255, 64);
+}
+.submenu{
+	font-size: 12px;
+}
+#dashbord{
+	color:var(--record-color);
+	text-align:var(--record);
+	position: absolute;
+	right:var(--dashbordArea);
+	top: 66px;
+	width: var(--tableListGrid);
+	height:var(--tableListGrid);
+}
+#dashbord a{
+	color: aquamarine;
+}
+
+.tablename{
+	color: chartreuse;
+}
+.hidden{
+	display: none;
+}

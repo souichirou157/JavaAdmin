@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<header id = "title" th:insert ="header"></header>
+
+
+
+
+<table id="dashbordTrriger" th:insert ="header_menu" ></table>
+	
+
+<body>
+
+<form  action= "/query"  method="post" style="position: absolute;  top:90px;  right:0px; width: 75% ; height:300px; border-radius: 90px; border:solid 3px cornflowerblue; ">
+	<div style="text-align: center;">
+	<textarea  id ="statement_area" cols="1800" rows="15" name="statement" style="margin-top:32px;  width:990px; color: rgb(0, 255, 64);background-color: rgb(0, 0, 128);" accept-charset="UTF-8"></textarea>
+	<input style="color:aqua;"  id ="run_state" th:value="${Run}"type="submit" onclick="log()">
+	</div>
+</form>
+
+<div style="text-align: center;  position: relative; top :360px;" >	
+</div>	
+
+
+<div>
+		
+<div id = "resultSet"style="position: absolute; top:420px; right:0px; width: 75%; height: 75%;  border-radius: 90px; border:solid 3px cornflowerblue;" >
+<div style="position: relative; right: -60px; height: 25%; width: 25%;">
+<a th:href="@{/query_continue}" th:text="${continue_or_suggest}"   style=" color: yellow; border-radius: 90px; background-color: lightseagreen; "></a>
+<a th:href= "@{/query_end}"   th:text="${end_or_suggest}"  style=" color: rgb(255, 255, 0); border-radius: 90px; background-color: crimson; "></a>
+</div>
+<div  th:utext="${Result}" style="  position: relative; right: -540px;"></div>
+</div>
+
+</body>
+		<script>
+
+			function log(){
+				document.querySelector('#statement_area').value = document.querySelector('#statement_area').value.replace(/,/g, '#');
+				document.querySelector('#statement_area').value = document.querySelector('#statement_area').value.replace(/ /g, '!');
+			
+				console.log(window.document.querySelector('#statement_area').value);
+			}
+	
+		</script>
+		
+		
+		
+	<style>
+		*{
+			margin:0px;
+			padding:0px;
+			
+		}
+		
+		
+		#dashbord{
+			position: absolute; top: 96px;left: 0;height: 130;width: 240px; 
+		}			
+		body{
+			background-color: rgb(0, 0, 0);
+		}
+		
+		#dashbord{
+			position: absolute;
+			top: 102px;
+			left:24px;
+		}
+		
+	
+	</style>
+		
+
+</html>

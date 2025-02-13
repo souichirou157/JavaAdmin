@@ -1,0 +1,26 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body style="background: rgb(0, 0, 0); ">
+	<table id="dashbordTrriger" th:insert ="header_menu" ></table>
+
+<div style="position: absolute; top: 90px; right:0px; width:75%; color: aqua; border-radius:90px; border:solid  3px  cadetblue; ">
+	<form action="/disp">	
+	<div th:utext="${inputField}"></div>
+	<input type="submit" value="実行" style="border-radius: 90px;background-color: blue; color:yellowgreen; text-align: right;">
+	
+	</form>
+</div>
+
+<script>
+	/*設定で変えられるようにしたい*/
+	const values = document.querySelectorAll('.values');
+	values.disabled = true;
+    console.log(values);
+	</script>
+</body>
+</html>

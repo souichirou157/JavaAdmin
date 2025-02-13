@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+
+
+
+:root{
+	--zero:0px;
+	--font-color:aqua;
+	--miscellaneous:45px;
+	--record-color:aquamarine;
+	--record:center;
+	--regionline:solid 3px cornflowerblue;
+	--rightRegionWidth: 75%;
+	--full:100%;
+	--dashbordArea:1596px;
+	--motif:rgb(0, 0, 64);
+	--tableGrid:75px;
+	--tableListGrid:18%;
+	--gridMotif:90px;
+	--interval_default:12px;
+}
+
+	
+	
+
+*{
+	margin:var(--zero);
+	padding:var(--zero);
+}
+
+
+
+#title{
+	border:var(--regionline);
+	border-radius:var(--gridMotif);
+	width:16.96%;
+	text-align:var(--record);
+	height: 9%;
+	color:var(--font-color);
+	font-size:var(--miscellaneous);
+}
+
+
+
+#DataFieled{
+	position: fixed;
+	border:var(--regionline);
+	border-radius:var(--gridMotif);
+	position: absolute;
+	top: var(--miscellaneous);
+	right:var(--zero);
+	width: var(--rightRegionWidth);
+	height: 96%;
+	margin:51px var(--zero) var(--zero) 45px;
+	padding:var(--zero)  calc(var(--interval_default)+6) var(--zero) calc(var(--interval_default)+6);
+
+}
+
+#pagenate{
+	position: relative;
+	left: calc(var(--interval_default)*10);
+	margin-top:calc(var(--interval_default)*3);
+	display: flex;
+	position:absolute;
+	border: solid 3px floralwhite;
+	border-radius: var(--gridMotif);
+	top :360px;
+	color:var(--record-color);
+}
+#pagenate .option{
+	margin:var(--zero)  var(--zero) var(--interval_default);
+	padding:var(--zero) calc(var(--interval_default)) var(--zero)   calc(var(--interval_default));	
+}
+#pagenate #pages{
+	width: var(--full);
+	color:rgb(0, 255, 64);
+	
+}
+#pagenate #prev,#next{
+	color: rgb(255, 0, 255);
+}
+#pagenate #delete , #export,#edit{
+	color: greenyellow;
+}
+
+
+.records .data{
+	list-style: none;
+	margin-left: auto;
+}
+
+
+#dashbord{
+	position: relative;
+	left: 0px;
+	top: 240px;
+	background-color:var(--motif);
+	text-align: left;
+	margin-top:24px;
+}
+
+body{
+	background-color:var(--motif);	
+}
+

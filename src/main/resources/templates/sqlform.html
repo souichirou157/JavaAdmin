@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<div id = "queryform" th:fragment="SQLform">
+	
+<form  action= "/query"  method="post" style="position: absolute;  top:100px;  right:0px;">
+	
+	<textarea  id ="statement_area" cols="2000" rows="20" name="statement" style="width:1320px; color: rgb(0, 255, 64);background-color: rgb(0, 0, 128);" accept-charset="UTF-8"></textarea><br>
+	<div style="position: relative; right: -1290px;">
+	<input style="color:aqua; "  id ="run_state" th:value="${Run}"type="submit" onclick="log()">
+	</div>
+</form>
+</div>	
+</div>
+
+
+
+
+
+
+		<script>
+
+			function log(){
+				document.querySelector('#statement_area').value = document.querySelector('#statement_area').value.replace(/,/g, '#');
+				document.querySelector('#statement_area').value = document.querySelector('#statement_area').value.replace(/ /g, '!');
+			
+				console.log(window.document.querySelector('#statement_area').value);
+			}
+	
+		</script>
+		
+		
+	
+		
+
+</html>

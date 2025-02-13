@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title >Admin</title>
+</head>
+<body>
+<link th:href="@{/css/admin.css}"rel="stylesheet" >
+
+<header id = "title" th:insert ="header"  ></header>
+
+
+
+
+
+<table id="dashbordTrriger" th:insert ="header_menu" ></table>
+
+<ul> 
+<li  th:each=" database ,stat: ${databases}">           <!--,dbpointer=${dbindex})今はいらない-->
+	<a style="color :aqua; " name="dbname"  th:with="dbindex= ${stat.index}" th:value="${dbindex}"  th:href="@{/db(database=${database})}"  th:text="${database}" ></a>
+</li>	
+
+</ul>
+	
+
+
+<main id = "DataFieled">
+
+<div style=" height: 66%; margin:64px; border: solid 2px  darkcyan; border-radius: 90px;">
+<form action="select_operation_query" method="get">
+<div style="margin: auto; position: fixed; position: relative; top:32px; " th:utext ="${preview}"  ></div>
+<div  th:insert ="tablelist" style="width: 12%; height:12%;"></div>
+<div style=" position:fixed; top:570px;">
+
+<div th:insert="Itemlist"></div>
+
+
+<input type="submit" value="実行" style="width:240px; border-radius: 60px;  color: chartreuse; background-color: rgb(0, 128, 128); flex-wrap:wrap;">	
+</form>
+</div>
+
+<div style=" position:fixed; top:640px;">
+	
+	<form action="/ResetSerialnumber">
+		<input type="submit" style="width:120px; border-radius: 60px;  color: rgb(255, 255, 128); background-color: rgb(0, 128, 192); "  value="連番をリセット">	
+	</form>
+</div>
+</div>
+
+</main>
+
+
+
+	
+
+
+</body>
+<script th:src="@{/js/app.js}" ></script>
+
+ <!-- 追加！！ <script src="src/../../../app.ts" defer></script>-->
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<header id = "title" th:insert ="header"  ></header>
+<table id="dashbordTrriger" th:insert ="header_menu" ></table>
+
+
+<body style="background: rgb(0, 0, 0); height: 75%;">
+	
+<div id="exportfield" style=" border: solid 3px rgb(0, 64, 128); border-radius: 90px ;width:75%;height:100%;position: absolute; right: 0px;top:120px;">
+	
+	<h1 style="color: aquamarine; text-align: center;"  th:text="${currentmessage}"></h1>
+	
+	<form action="/export" method="get" style="text-align: center; ">
+		
+		<div style=" z-index:50%; margin-left:24px; border-radius: 90px ;width:12%;height:36%; border: solid 3px whitesmoke;">
+		<div style="color: rgb(192, 192, 192); text-align: center;">フォーマット::</div>
+		</div>		
+	
+		<div style="text-align:left;  border-radius: 120px;  border: solid 3px darkorange; height: 90px; width:78%;">
+		<select name="format_item" th:size="${format_length}" style="margin: 33px ; width: 75%; text-align: left;" >
+			<option>フォーマットを選択</option>
+			<option  th:each="format :${DataFormat}"  th:utext="${format}" th:value="${format}"></option>	
+		</select>	
+		</div>
+		
+		
+		<div style=" position: relative; top:60px; margin-left:24px; border-radius: 90px ;width:12%;height:36%; border: solid 3px whitesmoke;">
+		<div style="color: rgb(192, 192, 192); text-align: center;">文字コード::</div>
+		</div>		
+		<div style=" margin-top:64px ;top:240px; text-align:left;  border-radius: 120px;  border: solid 3px darkorange; height: 90px; width:78%;">
+		
+		<select name="encoding_item" th:size="${encoding_length}" style="margin: 33px ; width: 75%; text-align: left;" >
+			<option>エンコーディングの選択</option>
+			<option  th:each="encoding :${Encoding}"  th:utext="${encoding}" th:value="${encoding}"></option>	
+		</select>	
+		</div>
+		
+		<div style="text-align: left; ">
+		<a  id ="loder" th:href="${loder}" th:download="${loder}" ></a>
+		<input id="insert_submit"  type="submit" th:value="${title}" style="margin: 27px; text-align: center; border-radius:90px; background-color: blue;color:rgb(0, 255, 0);">		
+		</div>	
+	</form>
+	
+	<div id = "suguest_field">
+		<a id="ex_continue" style="color:yellow;  background-color: rgb(0, 255, 128); border-radius: 90px;" th:href="@{/export_continue}" th:text="${continue}" ></a>
+		<a id="ex_end"      style="color:yellow;  background-color: rgb(255, 0, 0); border-radius: 90px;"  th:href="@{/export_end}"   th:text="${end}" ></a>
+	</div>
+	
+	</div>
+	
+<script th:src="@{/js/export.js}"> 
+
+	
+</script>	
+
+
+</body>
+
+
+
+
+
+
+</html>

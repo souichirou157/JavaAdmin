@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color: rgb(0, 0, 128);">
+	
+	<div style="width: 720px; height: 240px; background-color: rgb(255, 0, 0);  border: solid 8px; border-radius: 90px;">
+	<p style="text-align: left; color: yellow; margin:24px;">本当に削除しますか?</p>
+	
+	
+	<h1 th:text="${selecttable}" style="font-size: 96%; margin:24px;"></h1>
+	
+	<h1 th:text="${result}"></h1>
+	
+	<form action="/ConsentQuery" method="get">
+		<div th:utext="${checkuserID}">
+		</div>		
+		
+		<input type ="submit" value="はい">
+		
+	</form>
+	
+	</div>
+
+	
+
+	
+	
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<header id = "title" th:insert ="header"  ></header>
+<table id="dashbordTrriger" th:insert ="header_menu" ></table>
+
+<body style="background: rgb(0, 0, 0);">
+	
+<div style=" border: solid 3px rgb(0, 64, 128); border-radius: 90px ;width:75%;height:100%;position: absolute; right: 0px;top:120px;">
+
+<h1 style="color: aquamarine; text-align: center;"  th:text="${currentmessage}"></h1>
+
+<form action="/insert" method="get"  style="text-align: center; margin: 64px;">
+	
+	<div th:utext="${insertForm}" style="background:rgb(0, 64, 128); color: chartreuse; text-align: center;"></div>
+	
+	<div th:utext="${insert_submit}"></div>
+</form>
+
+<div style="text-align: center;">
+<a id="continue" th:href="@{/insert_continue}" th:text="${continue}" style="background-color: chartreuse; color: yellow; border: solid 3px; border-radius: 90px;"></a>
+<a id="end" th:href="@{/insert_end}" th:text="${end}" style=" background-color: red;  color:yellow; border: solid 3px;  border-radius: 90px;"></a>
+<div>
+</div>
+
+
+<script th:src="@{/js/insert.js}"></script>
+</body>
+</html>

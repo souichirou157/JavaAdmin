@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<select th:fragment="Itemlist" name="operation_item"  th:size="${len}" >
+	<option selected="selected" th:text="${ItemMessage}"></option>
+	<option th:each="Items:${item}" th:value="${Items}" th:text="${Items}"></option>
+</select> 
+
+
+</html>

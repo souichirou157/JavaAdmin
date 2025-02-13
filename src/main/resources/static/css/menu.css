@@ -1,0 +1,35 @@
+@charset "UTF-8";
+*{
+	margin :0px;
+	padding:0px;
+	background:rgb(3, 3, 58);
+	color:yellowgreen;
+}
+
+
+#username{ 
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: aqua;
+}
+
+#Field{
+	text-align:center;
+	height:75%;
+	border:solid 9px rgb(0, 255, 64);
+	margin:24px;
+	font-size:66px;
+}
+#title{
+	color:yellowgreen;
+	text-align:center;
+	font-size:66px;
+}
+
+.btn{
+	all:unset;
+	border-radius: 30px;
+	background:black;
+	margin:12px;
+}

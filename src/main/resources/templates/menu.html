@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link   th:href="@{/css/menu.css}"rel="stylesheet" >
+</head>
+<body>
+
+
+  
+<h1 id = "title">Mainmenu</h1>
+<h2 id ="username"th:text="${Data}"></h2>
+<div id = "Field">
+	    
+    
+<form action="/AuthorityHolder" method="post" id="form">
+	    
+	    <input type="hidden" name ="have_authority_user"  style="width:125px"   th:value ="${loginuser}">
+        <div th:if="${loginuser!=null}">
+        <button th:text="${authority_holder}" >
+		</div>
+		
+		
+</form>
+  
+  
+  
+<form action="/ViewOnly" method="post" id="form2">		
+	
+		<input type="hidden"  name ="view_user" style="width:125px" th:value ="${View_loginuser}">
+		<div th:if="${View_loginuser!=null}">
+			<button  th:text="${view_only}" >
+		</div>
+</form>
+ 
+     	
+	
+
+
+<script th:src="@{/js/menuEvent.js}"></script> <!-- 追加！！ -->
+</body>
+</html>	

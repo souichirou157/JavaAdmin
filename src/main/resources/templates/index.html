@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:href="@{../static/css/index.css}"></link>
+
+</head>
+<body>
+		
+	<p  style="color: aqua;" th:text="${status}"></p>
+	
+	
+    <form action="/login" method="post" id="form">
+		<p  th:text="ユーザネーム"></p>
+		<input type="text" name ="name" maxlength='15' placeholder="ユーザネーム"  style="width:125px">
+        <p  th:text="パスワード"></p>
+        <input type="text" name="password" maxlength='15'    placeholder="パスワード"  style="width:125px"></br>     
+        <input th:value="OK"type="submit">
+    </form>
+
+
+
+
+
+<style>
+	
+	*{
+		margin:0;
+		padding: 0;
+	}
+	
+	
+	body{
+		background-color: black;
+	}
+	
+	
+	#form{
+		margin :0 auto;
+		text-align: center;
+		position: relative;
+		top: 126px;
+	}
+	
+	#form > p{
+		
+		color: aqua;
+	}
+	
+	
+	
+	
+</style>
+
+</body>
+</html>
+
+<!--http://emmet.io/eclipse/updates/-->

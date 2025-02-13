@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link th:href="@{/css/header_menu.css}"rel="stylesheet" >
+</head>
+
+<tr th:fragment="header_menu">
+<td><button id="Trriger" onclick="admin.viewChange();">↔</button></td>
+<td ><p id = "cuurrenttablename" th:text="${currenttable}" th:value="${name}"></p></td>
+<td class ="submenu" ><a  th:href="@{/queryform}"    th:text="${operable}"></td>
+<td class ="submenu" ><p  th:text="${Server}"></p></td>
+<td class ="submenu" ><a  th:href="@{/Struct}" th:text="${struct}"></a></td>
+<td class="submenu"  ><a  th:href="@{/Operation/Insert}"   th:text="${Insert}">挿入</a><td>
+<td class ="submenu" ><a  th:href="@{/exportData}"   th:text="${export}"></a></td>
+<td class ="submenu" ><p  th:text="${currentuser}" style="color:aqua;" ></p></td>
+<td class ="submenu" ><a  th:href="@{/logout}" style="color:orangered;" >ログアウト</a></td>
+<td class ="submenu" ><p style="color:rgb(255, 0, 255);">データベース</p> <p style="color: rgb(0, 255, 255);" th:text="${SelectedDB}"></p></td>
+<td class ="submenu" ><p style="color:greenyellow;">テーブル</p><p  th:text="${currentTable}" style="color: greenyellow;" ></p></td>
+</tr>
+</html>
