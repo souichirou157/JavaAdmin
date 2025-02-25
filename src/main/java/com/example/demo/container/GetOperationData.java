@@ -1,4 +1,4 @@
-package com.example.demo.model.sql.Metadata;
+package com.example.demo.container;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import com.example.demo.DSN.Resource;
 
-//テーブルリストを格納する配列を可変長に変更する
+
 public class  GetOperationData {
 
 	static ResultSet rs = null;
@@ -18,33 +18,30 @@ public class  GetOperationData {
 	private  ArrayList <String> TableList = new ArrayList<>();
 	public   ArrayList <String>  gettable() {return this.TableList;}
 
-	public GetOperationData (){
-		
-	}
-		
-	
-	public int rowCount(String tablename,int records) {
-		 
-			try(Connection    con =  DriverManager.getConnection(Resource.getUrl(), 
-					Resource.getUser(), Resource.getPassword() );){
-
-				PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) AS ROWCOUNT FROM "+" "+tablename);
-				ResultSet rs  =  ps.executeQuery();
-				
-				while (rs.next()) records  = rs.getInt("ROWCOUNT");
-					
-				
-			} catch (SQLException e) {
-					e.printStackTrace();    
-			} 
-		
-			
-			return records ;
-	}
 	
 
+//	public int rowCount(String tablename,int records) {
+//		 
+//			try(Connection    con =  DriverManager.getConnection(Resource.getUrl(), 
+//					Resource.getUser(), Resource.getPassword() );){
+//
+//				PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) AS ROWCOUNT FROM "+" "+tablename);
+//				ResultSet rs  =  ps.executeQuery();
+//				
+//				while (rs.next()) records  = rs.getInt("ROWCOUNT");
+//					
+//				
+//			} catch (SQLException e) {
+//					e.printStackTrace();    
+//			} 
+//		
+//			
+//			return records ;
+//	}
 	
-public  static  ArrayList <String>  showtable(String dbname){
+	
+	
+	public    ArrayList <String>  showtable(String dbname){
 		
 		 ArrayList <String> TableList = new ArrayList<>();
 		 
@@ -92,7 +89,7 @@ public  static  ArrayList <String>  showtable(String dbname){
 	
 
 	
-public  static  ArrayList<String> showDatabase(){
+public   ArrayList<String> showDatabase(){
 		
 		ArrayList<String> database = new ArrayList<String>();
 		

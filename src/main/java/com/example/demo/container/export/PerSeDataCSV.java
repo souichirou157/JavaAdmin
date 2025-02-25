@@ -1,4 +1,5 @@
-package com.example.demo.model.app.service.export;
+
+package com.example.demo.container.export;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,35 +8,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.example.demo.DSN.Resource;
-import com.example.demo.model.app.service.export.resource.CSVResource;
+import com.example.demo.container.export.resource.CreateFile;
+import com.example.demo.container.export.resource.PublishQuery;
+import com.example.demo.container.export.resource.SetEncode;
 
 
-final   non-sealed  class PerSeDataCSV  
+public  final class  PerSeDataCSV  
 
-extends CSVResource  
-     implements  OutputData
 {
 	
-	protected PerSeDataCSV () {}
-	
-	@Override
-	public   void  exportData(String entity,String encode)
+	public  final  void exportDataCSV(String entity,String encode)
 	{
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		
-		java.io.File f = super.create();
+		java.io.File f = CreateFile.create(".CSV");
 		
 		try (Connection con = DriverManager.getConnection(Resource.getUrl(),
 				Resource.getUser(),Resource.getPassword())){
 	   	    	
     
-	   	    rs = super.SetEncodeName(ps, con, encode);
+	   	    rs = SetEncode.SetEncodeName(ps, con, encode);
 	   	    
 	   	    if (rs.next()) System.out.println("Character Set Client: " + rs.getString("Value"));
-	   	    ps = con.prepareStatement(String.format(PUBLISHQUERY,entity,f,encode.toLowerCase()));
+	   	    ps = con.prepareStatement(String.format(PublishQuery.getStaement(),entity,
+	   	    		f,encode.toLowerCase()));
 	   	 	ps.executeQuery();
 	 
 		

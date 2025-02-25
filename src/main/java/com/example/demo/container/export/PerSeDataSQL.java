@@ -1,4 +1,4 @@
-package com.example.demo.model.app.service.export;
+package com.example.demo.container.export;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,16 +10,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.example.demo.DSN.Resource;
-import com.example.demo.model.app.service.export.resource.SQLResource;
+import com.example.demo.container.export.resource.CreateFile;
+import com.example.demo.container.export.resource.PublishQuery;
+import com.example.demo.container.export.resource.SetEncode;
  
-final   non-sealed class  PerSeDataSQL 
-extends SQLResource 
-   implements  OutputData
+
+public final class PerSeDataSQL 
+
  {
 
-	protected PerSeDataSQL (){}
 	
-	static class  Parse
+	private  class  Parse
 	{
 		private final static String  statement = "SHOW CREATE TABLE %s";
 		private static String  ParseData(Connection con ,PreparedStatement ps,ResultSet rs,String entity) 
@@ -53,28 +54,25 @@ extends SQLResource
 	}
 	
 	
-	@Override
-	public   void  exportData(String entity,String encode) 
+
+	public final   void exportDataTableStruct(String entity,String encode) 
 	{
 			
 	   	     PreparedStatement ps = null;
 	   	     ResultSet rs = null;
 	   	     
-	   	     java.io.File f = super.create();
+	   	     java.io.File f = CreateFile.create(".SQL");
 
 	   
 	   	    try (Connection con = DriverManager.getConnection(Resource.getUrl(),
 					Resource.getUser(),Resource.getPassword()))
 	   	   {
+	   	    	rs = SetEncode.SetEncodeName(ps, con, encode);
+	   	    	if (rs.next()) System.out.println("Character Set Client: " + rs.getString("Value"));
+	   	    	ps = con.prepareStatement(String.format(PublishQuery.getStaement(),entity,
+	   	 			f,encode.toLowerCase()));
 	   	    	
-	      
-	         rs = super.SetEncodeName(ps, con, encode);
-	       
-	         if (rs.next()) System.out.println("Character Set Client: " + rs.getString("Value"));
-	        
-	        
-	   	 	ps = con.prepareStatement(String.format(PUBLISHQUERY,entity,f,encode.toLowerCase()));
-	   	 	ps.executeQuery();
+	   	    	ps.executeQuery();
 	   	 	
 	   	 	try (FileWriter fw = new FileWriter(new File("C:/Users/cl05/Desktop/"+f));)
 	   	 	{

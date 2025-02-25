@@ -13,26 +13,29 @@
 
 
 
-
 <table id="dashbordTrriger" th:insert ="header_menu" ></table>
 
-<ul> 
-<li  th:each=" database ,stat: ${databases}">           <!--,dbpointer=${dbindex})今はいらない-->
-	<a style="color :aqua; " name="dbname"  th:with="dbindex= ${stat.index}" th:value="${dbindex}"  th:href="@{/db(database=${database})}"  th:text="${database}" ></a>
-</li>	
-
-</ul>
+<ul style="color :aqua; " th:each=" database ,stat: ${databases}">
+	<li>
+	
+		<a style="color :aqua;"  name="dbname" th:with="dbindex= ${stat.index}" th:value="${dbindex}"  
+		th:href="@{/db(database=${database})}" th:text="${database}"></a>
+		
+		<details >
+			<summary th:insert ="tablelist" style="width: 12%; height:12%;"></summary>
+		</details>
+	</li>
+	
+</ul>	
 	
 
 
 <main id = "DataFieled">
 
 <div style=" height: 66%; margin:64px; border: solid 2px  darkcyan; border-radius: 90px;">
-<form action="select_operation_query" method="get">
+<form action="/select_operation_query" method="get">
 <div style="margin: auto; position: fixed; position: relative; top:32px; " th:utext ="${preview}"  ></div>
-<div  th:insert ="tablelist" style="width: 12%; height:12%;"></div>
 <div style=" position:fixed; top:570px;">
-
 <div th:insert="Itemlist"></div>
 
 

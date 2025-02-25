@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <!--<ここもdbと同じように作り変える>-->
 
-<table style="  color:rgb(192, 192, 192); background-color: rgb(0, 128, 192);  margin:auto; " >
-	<tr th:fragment="tablelist"  th:each="tablelist : ${TableList}">
-		<td>
+
+	
+		<li th:fragment="tablelist"   th:each="tablelist : ${TableList}">
 			<a style="color :aqua; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">
-		</td>
-	</tr>
-</table>
+		</li>
+	
 </html>

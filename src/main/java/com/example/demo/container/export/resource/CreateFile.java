@@ -1,15 +1,14 @@
-package com.example.demo.model.app.service.export.resource;
+package com.example.demo.container.export.resource;
 
 import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public  sealed  interface TemplateFile 
+public   interface CreateFile 
 
-permits CSVResource,JSONResource,SQLResource
 {
 	
-	public default File create(String extention) 
+	public static  File create(String extention) 
 	{
 		
 		  Timestamp currentTime = new Timestamp(System.currentTimeMillis());

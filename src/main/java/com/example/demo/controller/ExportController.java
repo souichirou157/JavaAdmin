@@ -1,6 +1,5 @@
 
 package com.example.demo.controller;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.container.export.FileFormat;
+import com.example.demo.controller.service.JavaAdminService;
 import com.example.demo.model.app.Views;
-import com.example.demo.model.app.service.export.ExportClient;
-import com.example.demo.model.app.service.export.FileFormat;
-import com.example.demo.model.sql.Metadata.GetOperationData;
 import com.example.demo.model.sql.option.Encoding;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,9 +21,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public final class ExportController {
 	
-	
-	GetOperationData models;	
-	int index;
+	@Autowired
+	private JavaAdminService javaadminservice;	
 	@Autowired
 	HttpSession session;
 		
@@ -34,18 +31,15 @@ public final class ExportController {
 		 
 		mv.setViewName("export");
 		
-		@SuppressWarnings("uncheked")
-		ArrayList<String> database = (ArrayList<String>)session.getAttribute("databases");
-		
 		String username = (String)session.getAttribute("currentuser");
 		String tablename = (String)session.getAttribute("tablename");
 		
-		session.setAttribute("databases", database);
+		session.setAttribute("databases",javaadminservice.getDatabaseList(session));
 		session.setAttribute("currentuser", username);
 		session.setAttribute("tablename", tablename);
 
 
-		mv.addObject("databases",database);
+		mv.addObject("databases",javaadminservice.getDatabaseList(session));
 		mv.addObject("export","エクスポート");
 		mv.addObject("Insert","挿入");
 		mv.addObject("Disp","編集");
@@ -101,7 +95,8 @@ public final class ExportController {
 		mv.addObject("continue","続ける");
 		mv.addObject("end","トップページに戻る");
 		mv.addObject("title","エクスポート");
-		ExportClient.export(tablename,extension,encode.toLowerCase());
+		
+		javaadminservice.ExportDataFormat(tablename,extension,encode.toLowerCase());
 		mv.addObject("loder",null);
 		//"C:/Users/cl05/Desktop/"+ExportClient.getfilepath()
 		

@@ -1,6 +1,6 @@
 package com.example.demo.controller.service;
 
-public interface InvalidController {
+public interface Invalid {
 	
 	
 	public static  boolean valLengthCheck(String value) {

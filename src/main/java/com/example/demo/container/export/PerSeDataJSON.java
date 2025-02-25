@@ -1,4 +1,4 @@
-package com.example.demo.model.app.service.export;
+package com.example.demo.container.export;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.example.demo.DSN.Resource;
-import com.example.demo.model.app.service.export.resource.JSONResource;
+import com.example.demo.container.export.resource.CreateFile;
+import com.example.demo.container.export.resource.PublishQuery;
+import com.example.demo.container.export.resource.SetEncode;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -17,42 +19,33 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 
-final   non-sealed  class PerSeDataJSON 
+public  final class PerSeDataJSON 
 
-extends JSONResource 
-  implements  OutputData
+ 
 {
+	private final static String labels[] = {"column","row","rows"};
 	
-	
-	protected PerSeDataJSON() {}
-	
-	
-	static class Label{
-		
-		final static String labels[] = {"column","row","rows"};
-	}
-	
-	@Override
-	public   void exportData(String entity,String encode) { 
+	public  final  void exportDataJSON(String entity,String encode) { 
 		
 		  try (Connection con = DriverManager.getConnection(Resource.getUrl(),
 					Resource.getUser(),Resource.getPassword()))
 		  {
-			  java.io.File f = super.create();
+			  java.io.File f = CreateFile.create(".JSON");
 			  PreparedStatement ps =null;
 				
 		   	    	
 		   	    System.out.println("C:/Users/cl05/Desktop/");
 		     
 		        
-		   	   ResultSet  rs = SetEncodeName( ps,con,encode);
+		   	   ResultSet  rs = SetEncode.SetEncodeName(ps, con, encode);
 		        
 		        if (rs.next()) {
 		            System.out.println("Character Set Client: " + rs.getString("Value"));
 		        }
 		        
 		   	 
-		        ps = con.prepareStatement(String.format(PUBLISHQUERY,entity,f,encode.toLowerCase()));
+		        ps = con.prepareStatement(String.format(PublishQuery.getStaement(),entity,
+		        		f,encode.toLowerCase()));
 		   	 	ps.executeQuery();
 		   	 	
 			 	try
@@ -72,7 +65,7 @@ extends JSONResource
 					ArrayNode  rootNode = mapper.createArrayNode();
 					ObjectNode data = rootNode.addObject();  
 					ObjectNode tablename = data.putObject("name");
-					ObjectNode records = data.putObject(Label.labels[1]);
+					ObjectNode records = data.putObject(labels[1]);
 					
 					
 
@@ -82,7 +75,7 @@ extends JSONResource
 						
 						while(rs.next()) {
 								
-							ObjectNode row = records.putObject(Label.labels[0] + rs.getRow());
+							ObjectNode row = records.putObject(labels[0] + rs.getRow());
 						    for (int i = 1; i <= colamount; i++) {
 						        row.put(rsmetadta.getColumnName(i), rs.getString(i));
 						    }
@@ -99,7 +92,7 @@ extends JSONResource
 							
 
 	                   
-			 			System.out.println(mapper.writeValueAsString(extention));
+			 			System.out.println(mapper.writeValueAsString(".JSON"));
 			 
 					 		
 			 		
