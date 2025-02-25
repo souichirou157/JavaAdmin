@@ -15,19 +15,26 @@
 
 <table id="dashbordTrriger" th:insert ="header_menu" ></table>
 
-<ul style="color :aqua; " th:each=" database ,stat: ${databases}">
-	<li>
+
+
+<ul>
 	
+	<li style="color :aqua; " th:each=" database ,stat: ${databases}">
+		<p style="color: aqua;" th:text="${use_data_object}"></p>
 		<a style="color :aqua;"  name="dbname" th:with="dbindex= ${stat.index}" th:value="${dbindex}"  
-		th:href="@{/db(database=${database})}" th:text="${database}"></a>
-		
-		<details >
-			<summary th:insert ="tablelist" style="width: 12%; height:12%;"></summary>
-		</details>
+		th:href="@{/db(database=${database})}" th:text="${database}"></a>		
 	</li>
+	<div style="color :greenyellow;" th:text="${tables}"></div>
 	
-</ul>	
-	
+	<ul style="width: 12%; height:12%;">
+		<li th:fragment="tablelist"   th:each="tablelist : ${TableList}">
+			<a style="color :orange; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">							
+		</li>
+	</ul>
+		
+</ul>
+
+
 
 
 <main id = "DataFieled">
@@ -35,9 +42,9 @@
 <div style=" height: 66%; margin:64px; border: solid 2px  darkcyan; border-radius: 90px;">
 <form action="/select_operation_query" method="get">
 <div style="margin: auto; position: fixed; position: relative; top:32px; " th:utext ="${preview}"  ></div>
+<div th:insert ="tablelist" style=" margin:0 auto; width: 12%; height:12%; "></div>
 <div style=" position:fixed; top:570px;">
 <div th:insert="Itemlist"></div>
-
 
 <input type="submit" value="実行" style="width:240px; border-radius: 60px;  color: chartreuse; background-color: rgb(0, 128, 128); flex-wrap:wrap;">	
 </form>

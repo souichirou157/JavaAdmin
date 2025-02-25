@@ -5,10 +5,28 @@
 </head>
 <!--<ここもdbと同じように作り変える>-->
 
-
+<table border="1" th:fragment="tablelist">
+	<tbody style="background-color: rgb(255, 255, 255);">
+		<th style="color:darkmagenta;" th:text="${tablelist_item}"></th>
+		<th style="color:darkmagenta;" th:text="${struct_item}"></th>
+	</tbody>
 	
-		<li th:fragment="tablelist"   th:each="tablelist : ${TableList}">
-			<a style="color :aqua; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">
-		</li>
+	<tbody style="background-color: cadetblue;">
+		
+		
+		<tr th:each="tablelist : ${TableList}">
+		
+			<td>
+				<a style="color :orange; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">
+			</td>
+			<td>
+				<a th:href="@{/Struct/s_t(struct_t=${tablelist})}" th:text="${struct}" name="table" ></a>
+			</td>
+			<td>
+				<a th:href="@{/db/showtable/tb/table_name(t_view = ${tablelist})}" name="display" th:title="${tablelist}" th:text="${view_t}"></a>
+			</td>
+		</tr>
+	</tbody>
+	</table>
 	
 </html>

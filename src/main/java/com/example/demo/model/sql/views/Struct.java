@@ -48,9 +48,11 @@ public abstract class Struct {
 					result.append("</tr>");
 				}
 				 result.append("</table>");
-			
+	
+				 System.out.println(UseQuery.statement);
 				 return result;		
 			
+	
 		} catch (SQLException e) {
 				e.printStackTrace();
 							

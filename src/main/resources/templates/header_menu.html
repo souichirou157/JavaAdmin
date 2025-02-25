@@ -8,7 +8,7 @@
 <td><button id="Trriger" onclick="admin.viewChange();">↔</button></td>
 <td ><p id = "cuurrenttablename" th:text="${currenttable}" th:value="${name}"></p></td>
 <td class ="submenu" ><a  th:href="@{/queryform}"    th:text="${operable}"></td>
-<td class ="submenu" ><p  th:text="${Server}"></p></td>
+<td class ="submenu" ><p style="color:aqua;" th:text="${Server}"></p></td>
 <td class ="submenu" ><a  th:href="@{/Struct}" th:text="${struct}"></a></td>
 <td class="submenu"  ><a  th:href="@{/Operation/Insert}"   th:text="${Insert}">挿入</a><td>
 <td class ="submenu" ><a  th:href="@{/exportData}"   th:text="${export}"></a></td>

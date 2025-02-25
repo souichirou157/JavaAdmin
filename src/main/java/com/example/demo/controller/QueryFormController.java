@@ -262,10 +262,11 @@ final class QueryFormController {
 		
 		
 		mv.setViewName("admin");
-		
+
 		String tablename = (String)session.getAttribute("tablename");
 		String username = (String) session.getAttribute("currentuser");
 		String dbname = (String)session.getAttribute("dbname");
+	
 		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
 		session.setAttribute("currentuser", username);
 		session.setAttribute("tablename", tablename);
@@ -275,7 +276,6 @@ final class QueryFormController {
 		mv.addObject("currentuser","ユーザー\n"+username);
 		mv.addObject("databases",javaadminservice.getDatabaseList(session));
 		mv.addObject("preview",Struct.showStruct(tablename));
-		mv.addObject("test",tablename);
 		mv.addObject("operable","SQL");
 		mv.addObject("item",Core.getDMLOrders());
 		mv.addObject("currentTable",tablename);
@@ -288,6 +288,43 @@ final class QueryFormController {
 		
 		return mv;
 	}
+	
+
+	@GetMapping("/Struct/s_t")
+	public ModelAndView tableDescHandler(ModelAndView mv,Model model,
+			@RequestParam(name = "struct_t") String struct) {
+		
+		
+		mv.setViewName("admin");
+
+		String tablename = (String)session.getAttribute("tablename");
+		String username = (String) session.getAttribute("currentuser");
+		String dbname = (String)session.getAttribute("dbname");
+	
+		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("currentuser", username);
+		session.setAttribute("tablename", tablename);
+		session.setAttribute("dbname", dbname);
+		
+		
+		mv.addObject("SelectedDB",dbname);
+		mv.addObject("currentuser","ユーザー\n"+username);
+		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		System.out.println(struct);
+		mv.addObject("preview",Struct.showStruct(struct));
+		mv.addObject("operable","SQL");
+		mv.addObject("item",Core.getDMLOrders());
+		mv.addObject("currentTable",tablename);
+		mv.addObject("export","エクスポート");
+		mv.addObject("ItemMessage","チェックを");
+
+		
+		
+		
+		
+		return mv;
+	}
+
 	
 	
 	@GetMapping("Operation/Insert")
