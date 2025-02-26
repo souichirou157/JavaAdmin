@@ -108,6 +108,7 @@ final class LoginController {
 		return mv;
 	}
 
+
 	
 	//別画面から戻ってくるだけの時
 	@GetMapping("/return_to_top")	
@@ -130,12 +131,12 @@ final class LoginController {
 		mv.addObject("export","エクスポート");
 		mv.addObject("Insert","挿入");
 		mv.addObject("struct","show_struct");
-		mv.addObject("tablelist","<div  th:insert =\"tablelist\" style=\"width: 12%; height:12%;\"></div>");
 		mv.addObject("tableList", javaadminservice.addTableList(t,model));
+		mv.addObject("databases",javaadminservice.getDatabaseList(session));
 		mv.addObject("Struct","構造");
 		mv.addObject("currentuser","ユーザー\n"+username);
 		mv.addObject("currentTable",tablename);
-		
+		mv.addObject("preview",javaadminservice.findAll(tablename));
 		mv.addObject("len",2);
 		mv.addObject("databases",database);
 		mv.addObject("ItemMessage","チェックを");

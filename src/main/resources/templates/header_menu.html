@@ -13,7 +13,7 @@
 <td class="submenu"  ><a  th:href="@{/Operation/Insert}"   th:text="${Insert}">挿入</a><td>
 <td class ="submenu" ><a  th:href="@{/exportData}"   th:text="${export}"></a></td>
 <td class ="submenu" ><p  th:text="${currentuser}" style="color:aqua;" ></p></td>
-<td class ="submenu" ><a  th:href="@{/logout}" style="color:orangered;" >ログアウト</a></td>
+<td class ="submenu" ><a  th:href="@{/authority/logout}" style="color:orangered;" >ログアウト</a></td>
 <td class ="submenu" ><p style="color:rgb(255, 0, 255);">データベース</p> <p style="color: rgb(0, 255, 255);" th:text="${SelectedDB}"></p></td>
 <td class ="submenu" ><p style="color:greenyellow;">テーブル</p><p  th:text="${currentTable}" style="color: greenyellow;" ></p></td>
 </tr>

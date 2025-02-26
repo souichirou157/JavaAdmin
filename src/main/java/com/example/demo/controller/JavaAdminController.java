@@ -90,14 +90,17 @@ public class JavaAdminController {
 	}
 	@GetMapping("/db/showtable") //データベース名クリックするとテーブル一覧表示
 	private ModelAndView showtableHandler(@ModelAttribute("dbname") String dbname,
-				ModelAndView mv,Model model) {
+			RedirectAttributes redirectAttributes,	ModelAndView mv,Model model) {
+		
+		
 		
 		mv.setViewName("admin");
 		String username = (String)session.getAttribute("currentuser");
 	
      	dbname = (String) session.getAttribute("dbname");
-		dbname = (String) model.getAttribute("dbname");
-		
+     
+     	dbname = (String) model.getAttribute("dbname");
+		System.out.println("データベース名テスト");
 		session.setAttribute("currentuser", username);
 		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
 		session.setAttribute("dbname",dbname);
@@ -119,11 +122,12 @@ public class JavaAdminController {
 		mv.addObject("struct_item","構造");
 		mv.addObject("struct_view","構造");
 		mv.addObject("view_t","表示");
-		
+
+		redirectAttributes.addFlashAttribute("dbname",dbname);
 		return  mv;
 	}
 	
-	
+
 	@GetMapping("/db/showtable/tb/table_name")
 	private ModelAndView viewTableHandler(@ModelAttribute("dbname") String dbname,
 	@RequestParam (name="t_view")	String table,	ModelAndView mv,Model model) {
@@ -172,7 +176,7 @@ public class JavaAdminController {
 		mv.addObject("operable","SQL");
 		mv.addObject("ItemMessage","チェックを");
 		mv.addObject("Server");
-		mv.addObject("struct","構造ですー");
+		mv.addObject("struct","構造");
 	
 		return  "redirect:/db/showtable/tableschema";
 	}

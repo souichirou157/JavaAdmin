@@ -112,11 +112,7 @@ final class QueryFormController {
 		//try-catch書く場所おかしい
 		//入力したステートメントヘッダー
 		String stateOerder =stmt.toString().substring(0,stmt.toString().indexOf("!"));
-		System.out.println(stateOerder);
-
-
-		
-		
+		System.out.println(stateOerder);		
 		
 		try {
 			Core.get(core->{
@@ -164,38 +160,7 @@ final class QueryFormController {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	@GetMapping("/ConsentQuery")
-	private String deletehandler(ModelAndView mv,@ModelAttribute Views t,Model model,@RequestParam("deleteuser") String ...Id) {
-
-		mv.setViewName("delete");
-		mv.addObject("selecttable",Session.getTablename());	
-		mv.addObject("result",(ArrayList<String>) mv.getModel().get("value"));
 		
-		String tablename = (String)session.getAttribute("tablename");
-		session.setAttribute("tablename", tablename);
-
-		SelectUserId(tablename,Id);
-		
-		return  "forward:/authority/return_to_top";
-	}
-	
-	
-	
-	
-	@GetMapping("Operation/insert")
-	private String  ResultInsert(ModelAndView mv,@RequestParam("value") Object ...value) {
-		
-		mv.setViewName("insert");
-		String tablename = (String)session.getAttribute("tablename");
-		session.setAttribute("tablename", tablename);
-
-		addData(tablename,value);	
-	
-		return  "forward:/authority/return_to_top";
-
-	}
-	
 	
 	
 
@@ -221,6 +186,25 @@ final class QueryFormController {
 	
 		return mv;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/delete")
+	private String deletehandler(ModelAndView mv,@ModelAttribute Views t,Model model,@RequestParam("deleteuser") String ...Id) {
+
+		mv.setViewName("delete");
+		mv.addObject("selecttable",Session.getTablename());	
+		mv.addObject("result",(ArrayList<String>) mv.getModel().get("value"));
+		
+		String tablename = (String)session.getAttribute("tablename");
+		session.setAttribute("tablename", tablename);
+
+		SelectUserId(tablename,Id);
+		
+		return  "forward:/authority/return_to_top";
+	}
+	
+	
+
 		
 
 	@GetMapping("Operation/Disp")
@@ -242,7 +226,7 @@ final class QueryFormController {
 		return mv;
 	}
 	
-	@GetMapping("Operation/disp")
+	@GetMapping("/disp")
 	private String ResultDisp(@RequestParam("values") Object ...values) {
 		
 		String tablename = (String)session.getAttribute("tablename");
@@ -257,75 +241,7 @@ final class QueryFormController {
 		
 	}
 
-	@GetMapping("/Struct")
-	public ModelAndView tableDescHandler(ModelAndView mv,Model model) {
-		
-		
-		mv.setViewName("admin");
 
-		String tablename = (String)session.getAttribute("tablename");
-		String username = (String) session.getAttribute("currentuser");
-		String dbname = (String)session.getAttribute("dbname");
-	
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
-		session.setAttribute("currentuser", username);
-		session.setAttribute("tablename", tablename);
-		session.setAttribute("dbname", dbname);
-		
-		mv.addObject("SelectedDB",dbname);
-		mv.addObject("currentuser","ユーザー\n"+username);
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
-		mv.addObject("preview",Struct.showStruct(tablename));
-		mv.addObject("operable","SQL");
-		mv.addObject("item",Core.getDMLOrders());
-		mv.addObject("currentTable",tablename);
-		mv.addObject("export","エクスポート");
-		mv.addObject("ItemMessage","チェックを");
-
-		
-		
-		
-		
-		return mv;
-	}
-	
-
-	@GetMapping("/Struct/s_t")
-	public ModelAndView tableDescHandler(ModelAndView mv,Model model,
-			@RequestParam(name = "struct_t") String struct) {
-		
-		
-		mv.setViewName("admin");
-
-		String tablename = (String)session.getAttribute("tablename");
-		String username = (String) session.getAttribute("currentuser");
-		String dbname = (String)session.getAttribute("dbname");
-	
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
-		session.setAttribute("currentuser", username);
-		session.setAttribute("tablename", tablename);
-		session.setAttribute("dbname", dbname);
-		
-		
-		mv.addObject("SelectedDB",dbname);
-		mv.addObject("currentuser","ユーザー\n"+username);
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
-		System.out.println(struct);
-		mv.addObject("preview",Struct.showStruct(struct));
-		mv.addObject("operable","SQL");
-		mv.addObject("item",Core.getDMLOrders());
-		mv.addObject("currentTable",tablename);
-		mv.addObject("export","エクスポート");
-		mv.addObject("ItemMessage","チェックを");
-
-		
-		
-		
-		
-		return mv;
-	}
-
-	
 	
 	@GetMapping("Operation/Insert")
 	private ModelAndView  InsertHandler(ModelAndView mv,@ModelAttribute Views t,Model model) {
@@ -365,7 +281,95 @@ final class QueryFormController {
 		
 		return  mv;
 	}
+	
+	
 
+	@GetMapping("/insert")
+	private String  ResultInsert(ModelAndView mv,@RequestParam("value") Object ...value) {
+		
+		mv.setViewName("insert");
+		String tablename = (String)session.getAttribute("tablename");
+		session.setAttribute("tablename", tablename);
+
+		addData(tablename,value);	
+	
+		return  "forward:/authority/return_to_top";
+
+	}
+
+
+	
+	@GetMapping("/Struct")
+	public ModelAndView tableDescHandler(ModelAndView mv,Model model) {
+		
+		
+		mv.setViewName("admin");
+
+		String tablename = (String)session.getAttribute("tablename");
+		String username = (String) session.getAttribute("currentuser");
+		String dbname = (String)session.getAttribute("dbname");
+	
+		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("currentuser", username);
+		session.setAttribute("tablename", tablename);
+		session.setAttribute("dbname", dbname);
+		
+		mv.addObject("SelectedDB",dbname);
+		mv.addObject("currentuser","ユーザー\n"+username);
+		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		mv.addObject("preview",Struct.showStruct(tablename));
+		mv.addObject("operable","SQL");
+		mv.addObject("item",Core.getDMLOrders());
+		mv.addObject("currentTable",tablename);
+		mv.addObject("export","エクスポート");
+		mv.addObject("ItemMessage","チェックを");
+
+		
+		
+		
+		
+		return mv;
+	}
+	
+
+
+	
+	@GetMapping("/Struct/s_t")
+	public ModelAndView tableDescHandler(ModelAndView mv,Model model,
+			@RequestParam(name = "struct_t") String struct) {
+		
+		
+		mv.setViewName("admin");
+
+		String tablename = (String)session.getAttribute("tablename");
+		String username = (String) session.getAttribute("currentuser");
+		String dbname = (String)session.getAttribute("dbname");
+	
+		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("currentuser", username);
+		session.setAttribute("tablename", tablename);
+		session.setAttribute("dbname", dbname);
+		
+		
+		mv.addObject("SelectedDB",dbname);
+		mv.addObject("currentuser","ユーザー\n"+username);
+		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		System.out.println(struct);
+		mv.addObject("preview",Struct.showStruct(struct));
+		mv.addObject("operable","SQL");
+		mv.addObject("item",Core.getDMLOrders());
+		mv.addObject("currentTable",tablename);
+		mv.addObject("export","エクスポート");
+		mv.addObject("ItemMessage","チェックを");
+
+		
+		
+		
+		
+		return mv;
+	}
+
+	
 	
 	@GetMapping("/ResetSerialnumber")
 	private String SerialnumberHandler() {
