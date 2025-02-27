@@ -34,7 +34,7 @@ public class JavaAdminService {
 		private static final String statement = "SELECT User,Password FROM mysql.user WHERE  User = ? && Password = PASSWORD(?) ;";
 	}
 
-	public ArrayList<String> getDatabaseList(HttpSession  session) {
+	public List<String> getDatabaseList(HttpSession  session) {
 		
 		@SuppressWarnings("uncheked")
 		ArrayList<String> db = (ArrayList<String>)session.getAttribute("databases");

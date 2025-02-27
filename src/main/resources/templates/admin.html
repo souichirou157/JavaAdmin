@@ -18,16 +18,18 @@
 
 
 <ul>
-	
+	<li style="color: aqua;" th:text="${use_data_object}"></li>
+
 	<li style="color :aqua; " th:each=" database ,stat: ${databases}">
-		<p style="color: aqua;" th:text="${use_data_object}"></p>
+		
 		<a style="color :aqua;"  name="dbname" th:with="dbindex= ${stat.index}" th:value="${dbindex}"  
-		th:href="@{/db(database=${database})}" th:text="${database}"></a>		
+		th:href="@{/use_db(data_object=${database})}" th:text="${database}"></a>		
 	</li>
-	<div style="color :greenyellow;" th:text="${tables}"></div>
+	
+	<div style="color :greenyellow;" th:text="${tablename}"></div>
 	
 	<ul style="width: 12%; height:12%;">
-		<li th:fragment="tablelist"   th:each="tablelist : ${TableList}">
+		<li th:fragment="tablelist"   th:each="tablelist : ${table_list}">
 			<a style="color :orange; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">							
 		</li>
 	</ul>

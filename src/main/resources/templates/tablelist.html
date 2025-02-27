@@ -9,12 +9,13 @@
 	<tbody style="background-color: rgb(255, 255, 255);">
 		<th style="color:darkmagenta;" th:text="${tablelist_item}"></th>
 		<th style="color:darkmagenta;" th:text="${struct_item}"></th>
-	</tbody>
+		<th style="color :darkmagenta;" th:text="${display_item}"></th>
+	</tbody> 
 	
 	<tbody style="background-color: cadetblue;">
 		
 		
-		<tr th:each="tablelist : ${TableList}">
+		<tr th:each="tablelist : ${tables}">
 		
 			<td>
 				<a style="color :orange; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">
@@ -23,7 +24,7 @@
 				<a th:href="@{/Struct/s_t(struct_t=${tablelist})}" th:text="${struct}" name="table" ></a>
 			</td>
 			<td>
-				<a th:href="@{/db/showtable/tb/table_name(t_view = ${tablelist})}" name="display" th:title="${tablelist}" th:text="${view_t}"></a>
+				<a th:href="@{/use_db/showtable/tb/table_name(t_view = ${tablelist})}" name="display" th:title="${tablelist}" th:text="${view_t}"></a>
 			</td>
 		</tr>
 	</tbody>
