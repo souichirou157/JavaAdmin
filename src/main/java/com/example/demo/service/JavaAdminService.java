@@ -1,4 +1,4 @@
-package com.example.demo.controller.service;
+package com.example.demo.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.DSN.Resource;
 import com.example.demo.container.Components;
-import com.example.demo.container.GetOperationData;
 import com.example.demo.container.export.FileFormat;
+import com.example.demo.container.operation.dataset.GetOperationData;
 import com.example.demo.model.app.Views;
 
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +34,30 @@ public class JavaAdminService {
 		private static final String statement = "SELECT User,Password FROM mysql.user WHERE  User = ? && Password = PASSWORD(?) ;";
 	}
 
+//	public StringBuilder  createForm(String tablename,String ...Id) {
+//		
+//		
+//		return component.callDispField(tablename, tablename);
+//	}
+//	
+//	
+//	public void runtimeDisp(String tablename,Object ...values) {
+//		
+//		component.runtimeDisp(tablename,values);
+//	}
+
+	
+	public StringBuilder showSchema(String tablename) {
+		
+		return component.showSchema(tablename);
+	}
+	
+	public void deleteData(String tablename,String ...Id) {
+		component.SelectIDToDelete(tablename, Id);
+	}
+		
+	
+	
 	public List<String> getDatabaseList(HttpSession  session) {
 		
 		@SuppressWarnings("uncheked")

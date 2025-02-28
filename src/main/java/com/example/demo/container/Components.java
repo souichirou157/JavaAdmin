@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.container.export.ExportClient;
 import com.example.demo.container.export.FileFormat;
+import com.example.demo.container.operation.dataset.GetOperationData;
+import com.example.demo.container.operation.query.Delete;
+import com.example.demo.container.operation.query.SchemaData;
 
 
 @Component
@@ -17,6 +20,16 @@ public class Components {
 	
 	@Autowired
 	private ExportClient  export_client;
+	
+	@Autowired
+	private Delete delete;
+	
+	@Autowired
+	private SchemaData  struct;
+	
+//	@Autowired
+//	private Disp  disp;
+//	
 	
 	public ArrayList<String> showDatabase(){
 		
@@ -38,6 +51,50 @@ public class Components {
 		export_client.export_branch(tablename,extension,encode);
 		
 	}
+	
+	
+	
+	public void SelectIDToDelete(String tablename,String ...Id) {
+		
+		delete.SelectUserId(tablename,Id);
+		
+	}
+	
+	public StringBuilder showSchema(String tablename) {
+		
+		return struct.showSchema(tablename);
+	}
+
+	
+	
+	
+//	public StringBuilder callDispField(String tablename,String Id) {
+//		
+//		return disp.createForm(tablename, Id);
+//	}
+//	
+//	public void runtimeDisp(String tablename,Object ...values) {
+//		
+//		disp.runtime( tablename,values);
+//	}
+//	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

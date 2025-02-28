@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.controller.service.JavaAdminService;
 import com.example.demo.model.app.Views;
 import com.example.demo.model.sql.Core;
+import com.example.demo.service.JavaAdminService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -131,7 +131,7 @@ public class JavaAdminController {
 	}
 	
 
-	@GetMapping("/use_db/showtable/tb/table_name")
+	@GetMapping("/use_db/showtable/select_t/table_name")
 	private ModelAndView viewTableHandler(@ModelAttribute("dbname") String dbname,
 	@RequestParam (name="t_view")	String table,	ModelAndView mv,Model model) {
 		
@@ -163,7 +163,7 @@ public class JavaAdminController {
 	
 	
 	
-	@GetMapping("/tb")
+	@GetMapping("/select_t")
 	private String  BranchHandler(@RequestParam("table") String tablename,RedirectAttributes redirectAttributes,
 			ModelAndView mv,Model model) {
 	

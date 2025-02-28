@@ -9,7 +9,7 @@
 	<table id="dashbordTrriger" th:insert ="header_menu" ></table>
 
 <div style="position: absolute; top: 90px; right:0px; width:75%; color: aqua; border-radius:90px; border:solid  3px  cadetblue; ">
-	<form action="/disp">	
+	<form th:action="@{/disp}">	
 	<div th:utext="${inputField}"></div>
 	<input type="submit" value="実行" style="border-radius: 90px;background-color: blue; color:yellowgreen; text-align: right;">
 	

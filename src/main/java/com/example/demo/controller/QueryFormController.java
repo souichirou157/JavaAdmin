@@ -1,13 +1,13 @@
 package com.example.demo.controller;	
-import static com.example.demo.model.sql.views.Delete.*;
-import static com.example.demo.model.sql.views.Disp.*;
-import static com.example.demo.model.sql.views.Disp.setForm;
-import static com.example.demo.model.sql.views.InsertForm.*;
-import static com.example.demo.model.sql.views.InsertForm.setForm;
+import static com.example.demo.container.operation.query.Disp.*;
+import static com.example.demo.container.operation.query.Disp.setForm;
+import static com.example.demo.container.operation.query.Insert.*;
+import static com.example.demo.container.operation.query.Insert.setForm;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.container.export.FileFormat;
-import com.example.demo.controller.service.JavaAdminService;
 import com.example.demo.model.app.Views;
 import com.example.demo.model.sql.Core;
 import com.example.demo.model.sql.Metadata.reservedwords.FOR_STATEMENTS;
 import com.example.demo.model.sql.option.Encoding;
 import com.example.demo.model.sql.perse.PersingException;
-import com.example.demo.model.sql.views.Struct;
+import com.example.demo.service.JavaAdminService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,8 +40,10 @@ final class QueryFormController {
 	private HttpSession  session ;
 	
 	@Autowired
-	private  JavaAdminService javaadminservice;
-
+	private  JavaAdminService javaAdminservice;
+	
+	private List<String> db_obj;
+	private List<Views> tb_obj;
 	@GetMapping("/queryform")
 	private ModelAndView queryformHandler(@ModelAttribute Views t,Model model,ModelAndView mv) 
 	{
@@ -52,16 +53,17 @@ final class QueryFormController {
 			String tablename = (String)session.getAttribute("tablename");
 			String username = (String)session.getAttribute("currentuser");
 			String dbname = (String)session.getAttribute("dbname");
-			
+			db_obj = javaAdminservice.getDatabaseList(session);
+			tb_obj = javaAdminservice.addTableList(t,model);
 			session.setAttribute("dbname", dbname);
 			session.setAttribute("currentuser", username);
-			session.setAttribute("databases",javaadminservice.getDatabaseList(session));
+			session.setAttribute("databases",db_obj);
 			session.setAttribute("tablename", tablename);
-			model.addAttribute("tableList", javaadminservice.addTableList(t,model)); 
+			model.addAttribute("tableList",tb_obj); 
 			
 			mv.addObject("SelectedDB",dbname);
 			mv.addObject("currentTable",tablename);
-			mv.addObject("databases",javaadminservice.getDatabaseList(session));
+			mv.addObject("databases",db_obj);
 			mv.addObject("export","エクスポート");
 			mv.addObject("queryfield","実行");
 			mv.addObject("Insert","挿入");
@@ -96,13 +98,13 @@ final class QueryFormController {
 		String dbname = (String)session.getAttribute("dbname");
 		session.setAttribute("dbname", dbname);
 		session.setAttribute("currentuser", username);
-		session.setAttribute("databases",javaadminservice.getDatabaseList(session));
+		session.setAttribute("databases",db_obj);
 		session.setAttribute("tablename", tablename);
 		
-		model.addAttribute("tableList", javaadminservice.addTableList(t,model)); 
+		model.addAttribute("tableList", tb_obj); 
 		mv.addObject("SelectedDB",dbname);
 		mv.addObject("currentTable",tablename);
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		mv.addObject("databases",db_obj);
 		mv.addObject("operable","取得が正常に終了しました");
 		mv.addObject("Run","実行");
 		mv.addObject("currentuser","ユーザー: "+username);
@@ -144,7 +146,7 @@ final class QueryFormController {
 		try {
 
 			switch(item) {
-			case FOR_STATEMENTS.DELETE:return "forward:/Operation/delete"; 
+			case FOR_STATEMENTS.DELETE:return "forward:/Operation/Delete"; 
 			case FOR_STATEMENTS.UPDATE:return "forward:/Operation/Disp";
 			case FOR_STATEMENTS.INSERT:return "forward:/Operation/Insert";
 	
@@ -164,8 +166,9 @@ final class QueryFormController {
 	
 	
 
-	@GetMapping("Operation/delete")
-	private  ModelAndView handler(ModelAndView mv,@ModelAttribute Views t,Model model,@RequestParam("Id") int ...Id) {
+	@GetMapping("Operation/Delete")
+	private  ModelAndView handler(ModelAndView mv,@ModelAttribute Views t,
+			Model model,@RequestParam("Id") int ...Id) {
 		
 		
 		mv.setViewName("delete");
@@ -174,11 +177,11 @@ final class QueryFormController {
 		String tablename = (String)session.getAttribute("tablename");
 		
 		session.setAttribute("tablename", tablename);
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("databases", db_obj);
 		
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		mv.addObject("databases",db_obj);
 		mv.addObject("selecttable",tablename);	
-		mv.addObject("checkuserID",javaadminservice.getId(tablename,Id).toString());
+		mv.addObject("checkuserID",javaAdminservice.getId(tablename,Id).toString());
 		
 		mv.addObject("value",Id);
 			
@@ -198,7 +201,7 @@ final class QueryFormController {
 		String tablename = (String)session.getAttribute("tablename");
 		session.setAttribute("tablename", tablename);
 
-		SelectUserId(tablename,Id);
+		javaAdminservice.deleteData(tablename,Id);
 		
 		return  "forward:/authority/return_to_top";
 	}
@@ -214,12 +217,12 @@ final class QueryFormController {
 		String username = (String) session.getAttribute("currentuser");
 		String tablename = (String)session.getAttribute("tablename");
 		
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("databases", db_obj);
 		session.setAttribute("currentuser", username);
 		session.setAttribute("tablename",tablename);
 		
 
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		mv.addObject("databases",db_obj);
 		mv.addObject("inputField",setForm(tablename,Id).toString());
 		mv.addObject("currentTable",tablename);
 		mv.addObject("currentuser","ユーザー: "+username);
@@ -309,15 +312,15 @@ final class QueryFormController {
 		String username = (String) session.getAttribute("currentuser");
 		String dbname = (String)session.getAttribute("dbname");
 	
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("databases", db_obj);
 		session.setAttribute("currentuser", username);
 		session.setAttribute("tablename", tablename);
 		session.setAttribute("dbname", dbname);
 		
 		mv.addObject("SelectedDB",dbname);
 		mv.addObject("currentuser","ユーザー\n"+username);
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
-		mv.addObject("preview",Struct.showStruct(tablename));
+		mv.addObject("databases",db_obj);
+		mv.addObject("preview",javaAdminservice.showSchema(tablename));
 		mv.addObject("operable","SQL");
 		mv.addObject("item",Core.getDMLOrders());
 		mv.addObject("currentTable",tablename);
@@ -345,7 +348,7 @@ final class QueryFormController {
 		String username = (String) session.getAttribute("currentuser");
 		String dbname = (String)session.getAttribute("dbname");
 	
-		session.setAttribute("databases", javaadminservice.getDatabaseList(session));
+		session.setAttribute("databases",db_obj);
 		session.setAttribute("currentuser", username);
 		session.setAttribute("tablename", tablename);
 		session.setAttribute("dbname", dbname);
@@ -353,9 +356,9 @@ final class QueryFormController {
 		
 		mv.addObject("SelectedDB",dbname);
 		mv.addObject("currentuser","ユーザー\n"+username);
-		mv.addObject("databases",javaadminservice.getDatabaseList(session));
+		mv.addObject("databases",db_obj);
 		System.out.println(struct);
-		mv.addObject("preview",Struct.showStruct(struct));
+		mv.addObject("preview",javaAdminservice.showSchema(struct));
 		mv.addObject("operable","SQL");
 		mv.addObject("item",Core.getDMLOrders());
 		mv.addObject("currentTable",tablename);
@@ -377,10 +380,17 @@ final class QueryFormController {
 		String tablename = (String)session.getAttribute("tablename");
 		session.setAttribute("tablename", tablename);
 
-		javaadminservice.SerialNumberReset(tablename);
+		javaAdminservice.SerialNumberReset(tablename);
 	
 		return "forward:/authority/return_to_top";
 	}
+	
+	@GetMapping("/CreateTable")
+	public void CreateTablehandler() {
+		
+		return ;
+	}
+	
 	
 	
 	@GetMapping("/query_end")

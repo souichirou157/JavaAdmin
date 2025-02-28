@@ -1,5 +1,5 @@
 
-package com.example.demo.model.sql.views;
+package com.example.demo.container.operation.query;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,11 +10,8 @@ import java.sql.SQLException;
 import com.example.demo.DSN.Resource;
 import com.example.demo.model.sql.Metadata.OperateTable;
 
-import lombok.Getter;
 
-@Getter
-
-public final class InsertForm {
+public final class Insert {
 	
 	public static String resultQuery ;
 	

@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+  
+:root{
+    --bg: gray;
+    --deth:rgb(0,0,0);
+    --born:rgb(243, 235, 235);
+    --switch:rgb(220,187,0);
+    --line:5px;
+}
+
+
+.table
+{
+  margin: 3px auto;
+}
+
+body
+{
+  background-color: black;
+}
+
+
+
+Main

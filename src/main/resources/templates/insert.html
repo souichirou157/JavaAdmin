@@ -13,7 +13,7 @@
 
 <h1 style="color: aquamarine; text-align: center;"  th:text="${currentmessage}"></h1>
 
-<form action="/insert" method="get"  style="text-align: center; margin: 64px;">
+<form th:action="@{/insert}" method="get"  style="text-align: center; margin: 64px;">
 	
 	<div th:utext="${insertForm}" style="background:rgb(0, 64, 128); color: chartreuse; text-align: center;"></div>
 	

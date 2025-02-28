@@ -1,5 +1,5 @@
 
-package com.example.demo.model.sql.views;
+package com.example.demo.container.operation.query;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ public final class Delete {
         	private final static String  statement = "DELETE FROM  %s  WHERE %s  =  %s ;";
         }
 	
-	public static void SelectUserId(String tablename,String ...Id) {
+	public  void SelectUserId(String tablename,String ...Id) {
 		
 		try (Connection    con =  DriverManager.getConnection(Resource.getUrl(),
 				Resource.getUser(),Resource.getPassword()))

@@ -21,18 +21,15 @@
 	<li style="color: aqua;" th:text="${use_data_object}"></li>
 
 	<li style="color :aqua; " th:each=" database ,stat: ${databases}">
-		
 		<a style="color :aqua;"  name="dbname" th:with="dbindex= ${stat.index}" th:value="${dbindex}"  
-		th:href="@{/use_db(data_object=${database})}" th:text="${database}"></a>		
+		th:href="@{/use_db(data_object=${database})}" th:text="${database}"></a>
 	</li>
 	
-	<div style="color :greenyellow;" th:text="${tablename}"></div>
 	
-	<ul style="width: 12%; height:12%;">
-		<li th:fragment="tablelist"   th:each="tablelist : ${table_list}">
-			<a style="color :orange; " name="tablename" th:href="@{/tb(table=${tablelist})}"th:text="${tablelist}">							
-		</li>
-	</ul>
+	<li th:fragment="tablelist"   th:each="tablelist : ${table_list}">
+		<a style="color :orange; " name="tablename" th:href="@{/select_t(table=${tablelist})}"th:text="${tablelist}">								
+	</li>
+			
 		
 </ul>
 
@@ -42,23 +39,24 @@
 <main id = "DataFieled">
 
 <div style=" height: 66%; margin:64px; border: solid 2px  darkcyan; border-radius: 90px;">
-<form action="/select_operation_query" method="get">
+
+
+<form th:action="@{/select_operation_query}" method="get">
 <div style="margin: auto; position: fixed; position: relative; top:32px; " th:utext ="${preview}"  ></div>
 <div th:insert ="tablelist" style=" margin:0 auto; width: 12%; height:12%; "></div>
 <div style=" position:fixed; top:570px;">
 <div th:insert="Itemlist"></div>
 
-<input type="submit" value="実行" style="width:240px; border-radius: 60px;  color: chartreuse; background-color: rgb(0, 128, 128); flex-wrap:wrap;">	
+<input type="submit" style="width:240px; border-radius: 60px;  color: chartreuse; background-color: rgb(0, 128, 128); flex-wrap:wrap;"  value="実行" >	
+<input  th:formaction="@{/ResetSerialnumber}" type="submit" style="width:120px; border-radius: 60px;  color: rgb(255, 255, 128); background-color: rgb(0, 128, 192); "  value="連番をリセット">
+
+
+<input  th:formaction="@{/CreateTable}"  type ="submit" style="width:120px; border-radius: 60px;  color: rgb(255, 255, 128); background-color: rgb(0, 128, 128); "  value="テーブルを作成">
+<input type="number"  name="col_amount" min="0" max="10">
+
 </form>
 </div>	
-	
-<div style=" position:fixed; top:640px;">
-	
-	<form action="/ResetSerialnumber">
-		<input type="submit" style="width:120px; border-radius: 60px;  color: rgb(255, 255, 128); background-color: rgb(0, 128, 192); "  value="連番をリセット">	
-	</form>
-</div>
-</div>
+
 
 </main>
 

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.container.Components;
-import com.example.demo.controller.service.JavaAdminService;
 import com.example.demo.model.app.Views;
 import com.example.demo.model.sql.Core;
+import com.example.demo.service.JavaAdminService;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -1,4 +1,4 @@
-package com.example.demo.model.sql.views;
+package com.example.demo.container.operation.query;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import com.example.demo.DSN.Resource;
 
-public abstract class Struct {
+public final class SchemaData {
 		
 	static class UseQuery{
 		
@@ -16,7 +16,7 @@ public abstract class Struct {
 	}
 	
 	
-	public static StringBuilder showStruct(String tablename) {
+	public   StringBuilder showSchema(String tablename) {
 		
 			
 		try (Connection  con = DriverManager.getConnection(Resource.getUrl(),
