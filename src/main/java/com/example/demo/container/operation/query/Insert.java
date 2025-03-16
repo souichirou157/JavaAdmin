@@ -1,15 +1,16 @@
 
-package com.example.demo.container.operation.query;
+package com.example.app.demo.container.operation.query;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import com.example.demo.DSN.Resource;
-import com.example.demo.model.sql.Metadata.OperateTable;
-
+import java.util.Objects;
+import com.example.app.demo.DSN.Resource;
+import com.example.app.demo.model.sql.Metadata.OperateTable;
 
 public final class Insert {
 	
@@ -31,30 +32,39 @@ public final class Insert {
 		    java.sql.ResultSetMetaData rsmetadata  =  OperateTable.GetTemplatData(tablename);
 			
 		 	int colamount = rsmetadata.getColumnCount();
+			
 		 	
 		 	StringBuilder	textfield  = new StringBuilder();		
 		 	textfield.append("<table id = \"insertTable\"  border=\"1\"  style=\"margin:64px 0 64px 0px;\">");
-		 	textfield.append("<tr><td>カラム</td><td>タイプ</td><td>関数</td><td>Null</td><td>値</td></tr>");
+		 	textfield.append("<tr><td>カラム</td><td>タイプ</td><td>関数</td><td>NOT NUll</td><td>値</td></tr>");
 			 	for(int i =1;  i <=colamount;i++) {
-			 		
-			 		int nullable = rsmetadata.isNullable(i); 
-			 		int datasize = rsmetadata.getPrecision(i);
-			 		
+
+					DatabaseMetaData metaData = con.getMetaData();
+					ResultSet  constraint = metaData.getColumns(null, null, tablename, rsmetadata.getColumnName(i));
 	
+								
 			 		
+			 		int nullable = rsmetadata.isNullable(i); //カラムがnot nullであるかを取得
+			 		int datasize = rsmetadata.getPrecision(i);//カラムに指定したデータサイズを取得する
 			 		textfield.append("<tr>").append("<td style=\"width:25%;\">").append(rsmetadata.getColumnName(i)+"("+rsmetadata.getPrecision(i)+")")
 			 		.append("</td>").append("<td class=\"DataType\"   style=\"width:25%;\">").append(rsmetadata.getColumnTypeName(i)).append("</td>")
 			 		.append("<td style=\"width:25%;\"><select  size=\"1\"  name=\"method_field\"  ><option>NOW()</option></td>");
 			 	
-			 		if(nullable == rsmetadata.columnNullable) {
+					
+					// デフォルト値を取得
+					if (constraint.next()) System.out.println(); 
+			 		
+			 		//NULLを許可した時
+					if(nullable == rsmetadata.columnNullable || Objects.nonNull(constraint.getString("COLUMN_DEF"))) {
 			 			textfield.append("<td style=\"width:25%;\"><input type=\"checkbox\" ></td>")
-				 		.append("<td  style=\"width:25%;\"><input type=\"text\" name=\"value\" class=\"insertData\" maxlength="+datasize+"  >").append("</tr>");
+				 		.append("<td  style=\"width:25%;\"><input type=\"text\" name=\"value\" class=\"insertData\" maxlength="+datasize+"  value="+constraint.getString("COLUMN_DEF")+">").append("</tr>");
+	
 			 		}
+					//NOT NULLの時
 			 		if(nullable == rsmetadata.columnNoNulls){
 			 			textfield.append("<td style=\"width:25%;\"><input type=\"checkbox\" checked></td>")
 				 		.append("<td  style=\"width:25%;\"><input type=\"text\" name=\"value\" class=\"insertData\" maxlength="+datasize+"  >").append("</tr>");
 			 		}
-			 		
 			 	}
 			textfield.append("</table>");
 			
