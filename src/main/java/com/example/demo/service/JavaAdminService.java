@@ -31,7 +31,7 @@ public class JavaAdminService {
 	
 	static class UseQuery{
 		
-		private static final String statement = "SELECT User,Password FROM mysql.user WHERE  User = ? && Password = PASSWORD(?) ;";
+		private static final String statement = "SELECT User,Password FROM mysql.user WHERE  User = ? && authentication_string  = ? ;";
 	}
 
 //	public StringBuilder  createForm(String tablename,String ...Id) {
